@@ -7,6 +7,7 @@ BOARD_COLUMNS = 7
 
 
 class Direction(Enum):
+    "Enumerated jump directions"
     UP = 0
     RIGHT = 1
     DOWN = 2
