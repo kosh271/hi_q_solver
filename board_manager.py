@@ -1,6 +1,8 @@
 """ Handles high-level operations on the board """
+import os
 from dataclasses import dataclass
 from enum import Enum
+
 
 BOARD_ROWS    = 7
 BOARD_COLUMNS = 7
@@ -12,6 +14,21 @@ class Direction(Enum):
     RIGHT = 1
     DOWN = 2
     LEFT = 3
+
+    @classmethod
+    def get_next_direction(cls, d):
+        """Get the next direction clockwise
+        return None if 'next' would be 'UP'
+        """
+        if d == Direction.UP:
+            return Direction.RIGHT
+        if d == Direction.RIGHT:
+            return Direction.DOWN
+        if d == Direction.DOWN:
+            return Direction.LEFT
+
+        return None
+
 
 
 @dataclass
@@ -75,6 +92,8 @@ class Board:
     """
     def _generate_board(self):
         self.board = []
+        self.max_rows = BOARD_ROWS
+        self.max_columns = BOARD_COLUMNS
 
         # Initialize board with all invalid positions
         for _ in range(BOARD_ROWS):
@@ -121,6 +140,17 @@ class Board:
                 print(peg.as_char(), end='')
             print()
         print(f"Total pegs: {self.num_pegs}")
+
+
+    def print_board_clean(self):
+        """ print the board to the terminal, clearing screen beforehand """
+        os.system('cls' if os.name == 'nt' else 'clear')
+        for row in self.board:
+            for peg in row:
+                print(peg.as_char(), end='')
+            print()
+        print(f"Total pegs: {'*' * self.num_pegs}")
+        print(f"Moves: {self.moves}")
 
 
     def get_peg(self, row_index: int, column_index: int) -> PegPosition:

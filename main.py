@@ -1,17 +1,14 @@
 """ Solver for hi-q board game """
-from board_manager import Board, Direction
+from board_manager import Board
+from solver import get_any_solution
 
 def main():
     """ Top-level solver method """
     print("Main")
     b = Board()
-    b.print_board()
 
-    b.make_move(1, 3, Direction.DOWN)
-    b.print_board()
-    print(f"Moves: {b.moves}")
-    b.undo_last_move()
-    b.print_board()
+    solution = get_any_solution(b)
+    print(f"solution: {solution}")
 
 if __name__ == "__main__":
     main()
