@@ -198,6 +198,9 @@ class Board:
         self.board[  jump_coords[0]][  jump_coords[1]].remove_peg()
         self.board[target_coords[0]][target_coords[1]].add_peg()
 
+        # Manage peg count
+        self.num_pegs -= 1
+
 
     def undo_last_move(self):
         """
@@ -213,3 +216,6 @@ class Board:
         self.board[      origin_row][   origin_column].add_peg()
         self.board[  jump_coords[0]][  jump_coords[1]].add_peg()
         self.board[target_coords[0]][target_coords[1]].remove_peg()
+
+        # Manage peg count
+        self.num_pegs += 1
